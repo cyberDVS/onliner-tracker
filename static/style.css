@@ -1,0 +1,32 @@
+.row{
+    margin: 0;
+}
+
+.new-item{
+    float: right;
+    margin: 5px 0;
+}
+
+.dropdown-toggle{
+    margin-right: 100px;
+}
+
+.flashes{
+    text-align: center;
+}
+
+.flash-error{
+    color: red;
+}
+
+.flash-success{
+    color: green;
+}
+
+.account{
+    text-align: center;
+}
+
+.form{
+    margin-top: 15px;
+}

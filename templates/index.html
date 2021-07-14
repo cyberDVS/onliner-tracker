@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block title %}Onliner Tracker{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="flashes">
+    {% with messages = get_flashed_messages(with_categories=True) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <p class="flash-{{ category }}">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+  </div>
+  {% if current_user.is_authenticated %}
+  <div class="table-responsive">
+    <div class="new-item">
+      <span><a class="btn btn-info" href="{{ url_for('new_item') }}">Add Item</a></span>
+    </div>
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Current Price</th>
+          <th scope="col">Acceptable Price</th>
+          <th scope="col">Min Price</th>
+          <th scope="col">Max Price</th>
+          <th scope="col">Start Tracking Date</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+        <tr>
+          <td>{{ item.item }} <a href="{{ item.link }}">link</a></td>
+          {% if item.current_price == 0 %}
+          <td>Нет в наличии</td>
+          {% else %}
+          <td>{{ item.current_price }}</td>
+          {% endif %}
+          <td>{{ item.acceptable_price }}</td>
+          <td>{{ item.min_price }}</td>
+          <td>{{ item.max_price }}</td>
+          <td>{{ item.start_tracking_date }}</td>
+          <td><a href="{{ url_for('edit_item', item_id=item.id) }}">Edit</a>
+            <a href="{{ url_for('delete_item', item_id=item.id) }}"> Delete</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+</div>
+
+{% endblock %}
